@@ -1,0 +1,62 @@
+MODUŁ SUMATYWNY - NOTATKI
+
+
+Podział pracy:
+	- ###TODO###
+
+
+Harmonogram prac:
+	- ###TODO###
+
+
+Wymagania Funkcjonalne:
+	- Rejestracja + Logowwanie
+	- Połączenie z bazą danych + Wypełnianie danymi
+	- Code Coverage do testów (dla obu apek)
+	- Testy jednostkowe + integracyjne + funkcjonalne
+	- CI/CD
+	- Stworzenie produktów + kategori
+	- Obsługa zamówień (Pojedyńczego zamówienia, wszystkich zamówień, statusu)
+
+
+Wymagania Niefunkcjonale:
+	- Python Django REST Framework
+	- Python Django
+	- Docker + wstępna automatyzacja
+	- Sqllite
+	- UnitTest + Selenium
+	- ??? CircleCI albo Github Actions ??? 
+	- Visual Paradigm (Online) - UML
+	- Python DocString - Dokumentacja
+	
+
+Baza danych sqllite (struktura):
+	- Użytkownicy
+	- Produkty
+	- Kategorie
+	- Zamówienie (User + Produkt + ilość)
+	- Zamówienie_asosjacyjna
+	- Zamówienia (Id_zamówienia + User?)
+	- Status (status zamówienia)
+
+
+Git:
+	- github
+	Kilka branchy. Master, Release, <nazwa feature> ...
+	Potem podłączymy CI/CD i będzie więcej informacji
+
+
+Kultura Pracy:
+	* Robimy dokumentację do funkcji które tworzymy. 
+	Opis: 
+		- co robi funkcja
+		- parametrów
+ 		- co funkcja zwraca
+
+	* Wiem, że pewnie nie muszę wam tego pisać. Dlatego wybaczcie ;-)
+	Trzymamy się zasad clean code:
+		- Sensowne nazewnictwo: zmiennych, funkcji, klas, plików itp
+		- Fajnie jabky funkcje nie miały z 200 lini kodu
+		- Staramy się zachować czytelność kodu, żeby inni mogli się w nim odnaleść
+
+	* Sensowne i zrozumiałe nazewnictwo commitów.
