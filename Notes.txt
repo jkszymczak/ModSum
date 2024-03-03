@@ -26,8 +26,8 @@ Wymagania Niefunkcjonale:
 	- Sqllite
 	- UnitTest + Selenium
 	- ??? CircleCI albo Github Actions ??? 
-	- Visual Paradigm (Online) - UML
-	- Python DocString - Dokumentacja
+	- Visual Paradigm (Online)
+	- Python DocString + Sphinx documentations generator
 	
 
 Baza danych sqllite (struktura):
