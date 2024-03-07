@@ -24,6 +24,8 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
+        python -m pip install django-crispy-bootstrap
+        python -m pip install django-crispy-forms
         pip install -r requirements.txt
     - name: Run Tests
       run: |
