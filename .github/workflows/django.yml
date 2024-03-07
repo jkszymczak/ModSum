@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "ghActions" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "ghActions" ]
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install django-crispy-bootstrap
+        python -m pip install django-crispy-bootstrap4
         python -m pip install django-crispy-forms
         python -m pip install django
         pip install -r requirements.txt
