@@ -15,10 +15,88 @@
 
 <body class="bg-dark text-light">
 
-
-    {% block header %}
-
-    {% endblock %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a title="Shop" class="navbar-brand" href="/">
+                SHOP
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-test="nav-home" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-test="nav-categories" role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="nav-categories">
+                            <li><a class="dropdown-item" href="#">category 1</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">category 2</a>
+                            </li>
+                            <li><a class="dropdown-item" href="#">category 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-test="nav-contact" href="#">Contact</a>
+                    </li>
+                    {% if user.username == '' %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-test="nav-sign-in" href="/login">Sign in</a>
+                    </li>
+                    {% elif user.username == 'admin' %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-test="nav-menu" id="menu" role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menu">
+                            <li>
+                                <a class="dropdown-item" data-test="nav-admin-dashboard" href="/admin">
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" data-test="nav-admin-categories"
+                                    href="/admin/product/category/">Categories
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" data-test="nav-admin-products" href="/admin/product/product/">Products</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-orders" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-users" href="/admin/auth/user/">Users</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout">Sign out</a></li>
+                        </ul>
+                    </li>
+                    {% else  %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-test="nav-menu" id="menu" role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="menu">
+                                <li><a class="dropdown-item" data-test="nav-my-account" href="#">My account</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout" onclick="logout()">Sign out</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
 
 
     {% block content %}
