@@ -1,8 +1,9 @@
 from python:bookworm
-add . /home/app
-workdir /home/app
 expose 8000
+copy requirements.txt /home/app/
+copy . /home/app
+workdir /home/app
 run pip install -r requirements.txt
 run python manage.py makemigrations
 run python manage.py migrate
-cmd ["python","manage.py","runserver"]
+cmd ["python","manage.py","runserver","0.0.0.0:8000"]
