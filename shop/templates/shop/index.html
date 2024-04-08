@@ -20,7 +20,7 @@
             {% endif %}
 
             {% for product in products %}
-                <a data-test="product-{{ product.id }}" href="/product/{{ product.id }}" class="card" style="text-decoration: none; color: black; width: 15em;">
+                <a href="/product/{{ product.id }}" class="card" style="text-decoration: none; color: black; width: 15em;">
                     <div class="card-img-wrapper">
                         <img class="card-img-top" alt="{{ product.name }}" src="{{ product.image.url }}">
                     </div>

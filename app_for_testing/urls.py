@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('shop.urls')),
     path('register/', register, name='register'),
     path('', include('django.contrib.auth.urls')),
+    path('', include('product.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
