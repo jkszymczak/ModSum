@@ -13,20 +13,20 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded-start">
         </div>
         <div class="col-md-6">
             <h1>{{ product.name }}</h1>
             <p>{{ product.description }}</p>
-            <h4>Price: {{ product.price }}</h4>
+            <h4>Cena: {{ product.price }}zł</h4>
 
             <form action="#" method="post">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="quantity">Quantity:</label>
+                    <label for="quantity">Ilość:</label>
                     <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
             </form>
         </div>
     </div>

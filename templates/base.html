@@ -7,7 +7,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}base title{% endblock %}</title>
+    <title>{% block title %}Sklep z ubraniami{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
@@ -18,7 +18,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a title="Shop" class="navbar-brand h1" href="/">
-                SHOP
+                SKLEP
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,23 +33,23 @@
                         <a class="nav-link dropdown-toggle" href="#" data-test="nav-categories" role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
-                            Categories
+                            Kategorie
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="nav-categories">
-                            <li><a class="dropdown-item" href="#">category 1</a>
+                            <li><a class="dropdown-item" href="#">Lato</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">category 2</a>
+                            <li><a class="dropdown-item" href="#">Zima</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">category 3</a>
+                            <li><a class="dropdown-item" href="#">Jesień</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-test="nav-contact" href="#">Contact</a>
+                        <a class="nav-link" data-test="nav-contact" href="#">Kontakt</a>
                     </li>
                     {% if user.username == '' %}
                     <li class="nav-item">
-                        <a class="nav-link" data-test="nav-sign-in" href="/login">Sign in</a>
+                        <a class="nav-link" data-test="nav-sign-in" href="/login">Zaloguj się</a>
                     </li>
                     {% elif user.username == 'admin' %}
                     <li class="nav-item dropdown">
@@ -61,20 +61,20 @@
                         <ul class="dropdown-menu" aria-labelledby="menu">
                             <li>
                                 <a class="dropdown-item" data-test="nav-admin-dashboard" href="/admin">
-                                    Dashboard
+                                    Panel
                                 </a>
                             </li>
                             <li><a class="dropdown-item" data-test="nav-admin-categories"
-                                    href="/admin/product/category/">Categories
+                                    href="/admin/product/category/">Kategorie
                                 </a>
                             </li>
-                            <li><a class="dropdown-item" data-test="nav-admin-products" href="/admin/product/product/">Products</a></li>
-                            <li><a class="dropdown-item" data-test="nav-admin-orders" href="#">Orders</a></li>
-                            <li><a class="dropdown-item" data-test="nav-admin-users" href="/admin/auth/user/">Users</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-products" href="/admin/product/product/">Produkty</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-orders" href="/admin/auth/orders/">Zamówienia</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-users" href="/admin/auth/user/">Użytkownicy</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout">Sign out</a></li>
+                            <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout">Wyloguj się</a></li>
                         </ul>
                     </li>
                     {% else  %}
@@ -85,11 +85,11 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="menu">
-                                <li><a class="dropdown-item" data-test="nav-my-account" href="#">My account</a></li>
+                                <li><a class="dropdown-item" data-test="nav-my-account" href="#">Moje konto</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout" onclick="logout()">Sign out</a></li>
+                                <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout" onclick="logout()">Wyloguj się</a></li>
                             </ul>
                         </li>
                     {% endif %}
@@ -101,7 +101,7 @@
 
     {% block content %}
 
-    base page
+    bazowa strona
 
     {% endblock %}
 

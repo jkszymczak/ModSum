@@ -2,7 +2,7 @@
 
 {% block title %}
 
-    Login Here
+    Logowanie
 
 {% endblock %}
 
@@ -18,8 +18,8 @@
 
                 {% csrf_token %}
                 {{form|crispy}}
-                <p class="py-4">Don't have an account? Create one <a class="text-decoration-none" href="/register">Here</a></p>
-                <button type="submit" class="btn btn-success">Login</button>
+                <p class="py-4">Nie masz jeszcze konta? Stwórz je <a class="text-decoration-none" href="/register">Tutaj</a></p>
+                <button type="submit" class="btn btn-success">Zaloguj</button>
 
             </form>
 
