@@ -18,18 +18,51 @@
         <div class="col-md-6">
             <h1>{{ product.name }}</h1>
             <p>{{ product.description }}</p>
-            <h4>Cena: {{ product.price }}zł</h4>
+            <h4>Cena: {{ product.price }} zł</h4>
 
-            <form action="#" method="post">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="quantity">Ilość:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" class="form-control">
+                <div class="form-group row mb-2">
+                    <label for="quantity" class="col-form-label col-2">Ilość:</label>
+                    <div class="col-4">
+                        <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" class="form-control">
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Dodaj do koszyka</button>
-            </form>
+                <button type="submit" value="{{ product.id }}" id="add-cart" class="btn btn-primary">Dodaj do koszyka</button>
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var addButton = document.getElementById('add-cart');
+        addButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            var productId = addButton.value;
+            var quantity = document.getElementById('quantity').value;
+            var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url 'shop:cart_add' %}', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', csrfToken);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById('quantity').textContent = response.qty;
+                    location.reload();
+                }
+            };
+            xhr.onerror = function() {
+            };
+            xhr.send('product_id=' + productId + '&product_quantity=' + quantity + '&action=post');
+        });
+    });
+
+
+
+
+</script>
+
 
 {% endblock %}

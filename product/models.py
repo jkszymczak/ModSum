@@ -31,7 +31,7 @@ class Product(models.Model):
         ordering = ('-date_added',)
 
     def __str__(self):
-        return self.name
+        return str(self.id)
 
     def get_absolute_url(self):
         return f'/{self.category.slug}/{self.slug}/'

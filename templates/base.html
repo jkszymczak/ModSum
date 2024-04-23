@@ -93,6 +93,17 @@
                             </ul>
                         </li>
                     {% endif %}
+
+                    {% if cart %}
+                    <li>
+                        <a href="{% url 'shop:cart_summary' %}" class="btn btn-dark"><i class="bi-cart-fill me-1"></i>
+                            Koszyk
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}
+
+                        </span></a>
+                    </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
