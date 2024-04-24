@@ -13,9 +13,9 @@
 
 </head>
 
-<body class="bg-dark text-light">
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar  navbar-expand-lg navbar-dark bg-secondary mb-5">
         <div class="container">
             <a title="Shop" class="navbar-brand h1" href="/">
                 SKLEP
@@ -45,7 +45,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-test="nav-contact" href="#">Kontakt</a>
+                        <a class="nav-link" data-test="nav-contact" href="{% url 'shop:contact' %}">Kontakt</a>
                     </li>
                     {% if user.username == '' %}
                     <li class="nav-item">
@@ -96,7 +96,7 @@
 
                     {% if cart %}
                     <li>
-                        <a href="{% url 'shop:cart_summary' %}" class="btn btn-dark"><i class="bi-cart-fill me-1"></i>
+                        <a href="{% url 'shop:cart_summary' %}" class="btn btn-secondary"><i class="bi-cart-fill me-1"></i>
                             Koszyk
                         <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}
 
@@ -115,6 +115,12 @@
     bazowa strona
 
     {% endblock %}
+
+    <footer class="bg-secondary text-light text-center p-3 mt-auto">
+        <div class="container">
+            <p class="m-0">Wszelkie prawa zastrzeżone © 2024</p>
+        </div>
+    </footer>
 
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 

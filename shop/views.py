@@ -20,6 +20,13 @@ class ShopMainPage(View):
 
         return render(request, self.template_name, content)
 
+class ContactPage(View):
+    template_name = 'shop/contact.html'
+
+    def get(self, request, *args, **kwargs):
+
+        return render(request, self.template_name)
+
 def cart_summary(request):
     cart = Cart(request)
     cart_products = cart.get_products()

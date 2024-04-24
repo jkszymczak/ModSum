@@ -8,11 +8,13 @@ from .views import (
 
 from .views import (
     ShopMainPage,
+    ContactPage,
 )
 
 app_name = "shop"
 urlpatterns = [
     path('', ShopMainPage.as_view(), name='home'),
+    path('contact/', ContactPage.as_view(), name='contact'),
     path('cart', cart_summary, name="cart_summary"),
 	path('cart/add/', cart_add, name="cart_add"),
 	path('cart/delete/', cart_delete, name="cart_delete"),
