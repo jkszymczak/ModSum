@@ -59,6 +59,8 @@
                             {{ user.username }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="menu">
+                            <li><a class="dropdown-item" data-test="nav-my-account" href="{% url 'account' %}">Moje konto</a></li>
+                            <hr>
                             <li>
                                 <a class="dropdown-item" data-test="nav-admin-dashboard" href="/admin">
                                     Panel
@@ -85,7 +87,7 @@
                                 {{ user.username }}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="menu">
-                                <li><a class="dropdown-item" data-test="nav-my-account" href="#">Moje konto</a></li>
+                                <li><a class="dropdown-item" data-test="nav-my-account" href="{% url 'account' %}">Moje konto</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
