@@ -30,7 +30,7 @@ class ContactPage(View):
 def cart_summary(request):
     cart = Cart(request)
     cart_products = cart.get_products()
-    total_price = cart.cart_total_price(cart_products)
+    total_price = cart.cart_total_price()
     return render(request, 'shop/cart.html', {'cart_products': cart_products, 'total_price': total_price})
 
 def cart_add(request):

@@ -11,21 +11,6 @@ class Cart():
             cart = self.session['session_key'] = {}
         self.cart = cart
 
-    def db_add(self, product_id, product_quantity):
-        product_id = str(product_id)
-        product_quantity = int(product_quantity)
-        if product_id in self.cart:
-            self.cart[product_id]['quantity'] += product_quantity
-        else:
-            self.cart[product_id] = {'quantity': product_quantity}
-
-        self.session.modified = True
-
-        if self.request.user.is_authenticated:
-            user_profile = UserProfile.objects.get(user=self.request.user)
-            user_profile.old_cart = self.cart
-            user_profile.save()
-
     def add(self, product_id, product_quantity):
         product_id = str(product_id)
         product_quantity = int(product_quantity)
@@ -41,8 +26,15 @@ class Cart():
             user_profile.old_cart = self.cart
             user_profile.save()
 
-    def cart_total_price(self, products):
-        return sum(int(item.quantity) * item.price for item in products)
+    def cart_total_price(self):
+
+        total_price = 0
+
+        for product_id, product_quantity in self.cart.items():
+            product = Product.objects.get(id=product_id)
+            total_price += product.price * product_quantity['quantity']
+
+        return total_price
 
     def __len__(self):
         return len(self.cart)
@@ -69,3 +61,7 @@ class Cart():
         if product_id in self.cart:
             del self.cart[product_id]
             self.session.modified = True
+
+    def clear(self):
+        self.session['session_key'] = {}
+        self.session.modified = True

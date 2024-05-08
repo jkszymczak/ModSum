@@ -15,6 +15,15 @@
 
 <body class="bg-dark text-light d-flex flex-column min-vh-100">
 
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
     <nav class="navbar  navbar-expand-lg navbar-dark bg-secondary mb-5">
         <div class="container">
             <a title="Shop" class="navbar-brand h1" href="/">
@@ -71,7 +80,7 @@
                                 </a>
                             </li>
                             <li><a class="dropdown-item" data-test="nav-admin-products" href="/admin/product/product/">Produkty</a></li>
-                            <li><a class="dropdown-item" data-test="nav-admin-orders" href="/admin/auth/orders/">Zamówienia</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-orders" href="/admin/order/order/">Zamówienia</a></li>
                             <li><a class="dropdown-item" data-test="nav-admin-users" href="/admin/auth/user/">Użytkownicy</a></li>
                             <li>
                                 <hr class="dropdown-divider">

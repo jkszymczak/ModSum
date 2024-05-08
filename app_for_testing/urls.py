@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('django.contrib.auth.urls')),
     path('', include('product.urls')),
     path('account/', account, name='account'),
+    path('', include('order.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

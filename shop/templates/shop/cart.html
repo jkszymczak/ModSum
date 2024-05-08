@@ -47,7 +47,7 @@
         </tfoot>
     </table>
     <div class="float-end">
-        <a href="#" class="btn btn-success">Przejdź do zapłaty</a>
+        <a href="{% url 'order:billing_address' %}" class="btn btn-success">Przejdź do zapłaty</a>
     </div>
     {% else %}
     <h2 class="mt-4 text-center">Twój koszyk jest pusty.</h2>
