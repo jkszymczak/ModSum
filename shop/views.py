@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
 from django.views import View
 from django.http import JsonResponse
 from django.contrib import messages
@@ -13,9 +14,14 @@ class ShopMainPage(View):
 
         products = Product.objects.all()
 
+        paginator = Paginator(products, 8)
+
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         content ={
             'user': request.user,
-            'products': products,
+            'page_obj': page_obj,
         }
 
         return render(request, self.template_name, content)
