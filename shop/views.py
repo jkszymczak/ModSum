@@ -5,7 +5,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.contrib import messages
 from .cart import Cart
-from product.models import Product
+from product.models import Product, Category
 
 class ShopMainPage(View):
     template_name = 'shop/index.html'
@@ -13,6 +13,7 @@ class ShopMainPage(View):
     def get(self, request, *args, **kwargs):
 
         products = Product.objects.all()
+        categories = Category.objects.all()
 
         paginator = Paginator(products, 8)
 
@@ -22,6 +23,7 @@ class ShopMainPage(View):
         content ={
             'user': request.user,
             'page_obj': page_obj,
+            'categories': categories
         }
 
         return render(request, self.template_name, content)

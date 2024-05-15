@@ -8,6 +8,17 @@ from .models import Order, UserOrder
 from shop.cart import Cart
 import hashlib
 
+class MyOrdersPage(View):
+
+        template_name = 'my_orders.html'
+
+        def get(self, request, *args, **kwargs):
+            orders = Order.objects.filter(user=request.user)
+            content = {
+                'orders': orders
+            }
+            return render(request, self.template_name, content)
+
 class OrderBillingAddressPage(View):
 
     template_name = 'billing_address.html'
