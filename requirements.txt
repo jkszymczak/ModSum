@@ -5,3 +5,4 @@ crispy-bootstrap4
 djoser==2.2.2
 pillow==10.2.0
 stripe==8.6.0
+coverage==7.5.1

@@ -9,6 +9,14 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Tests
+
+```
+python manage.py test
+coverage run manage.py test
+coverage report
+```
+
 # Default accounts
 
 | login   | password      |

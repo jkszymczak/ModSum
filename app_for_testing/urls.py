@@ -2,15 +2,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from register.views import register, account
+from register.views import (
+    RegisterView,
+    AccountView,
+
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('shop.urls')),
-    path('register/', register, name='register'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
     path('', include('product.urls')),
-    path('account/', account, name='account'),
+    path('account/', AccountView.as_view(), name='account'),
     path('', include('order.urls')),
 ]
 

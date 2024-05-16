@@ -1,31 +1,36 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.views import View
 from .models import UserProfile, create_profile
 from .forms import UserProfileForm
 
-def register(response):
+class RegisterView(View):
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request, "register/register.html", {"form": form})
 
-    if response.method == "POST":
-        form = UserCreationForm(response.POST)
+    def post(self, request):
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            create_profile(response, response.user, True)
+            create_profile(request, request.user, True)
             return redirect("/")
-    else:
-        form = UserCreationForm()
-    return render(response, "register/register.html", {"form": form})
+        return render(request, "register/register.html", {"form": form})
 
-@login_required
-def account(response):
-    if response.method == "POST":
-        profile = UserProfile.objects.get(user=response.user)
-        profile_form = UserProfileForm(response.POST, instance=profile)
+class AccountView(View):
+    def post(self, request):
+        profile = UserProfile.objects.get(user=request.user)
+        profile_form = UserProfileForm(request.POST, instance=profile)
         if profile_form.is_valid():
             profile_form.save()
+        return render(request, "account/account.html", {'profile_form': profile_form})
 
-    else:
-        profile = UserProfile.objects.get(user=response.user)
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return redirect('/login')
+
+        profile = UserProfile.objects.get(user=request.user)
         profile_form = UserProfileForm(instance=profile)
-    return render(response, "account/account.html", {'profile_form': profile_form})
+        return render(request, "account/account.html", {'profile_form': profile_form})
 
