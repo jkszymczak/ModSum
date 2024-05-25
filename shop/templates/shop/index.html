@@ -14,29 +14,39 @@ Sklep z ubraniami
 		<div class="row">
 			<div class="col-2">
 				<div class="row text-dark">
-                    <div class="col-12">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-header">
+								<h5 class="card-title">Szukaj</h5>
+							</div>
+							<div class="card-body">
+								<div class="mb-3">
+									<label for="search" class="form-label">Szukaj</label>
+									<input type="text" class="form-control" id="search" name="search" value="{% if search %}{{ search }}{% endif %}">
+								</div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-12 mt-3">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title">Sortuj</h5>
                             </div>
                             <div class="card-body">
-                                <form method="get">
-                                    <div class="mb-3">
-                                        <label for="sort" class="form-label">Sortuj po</label>
-                                        <select class="form-select" id="sort" name="sort">
-                                            <option value="name" {% if sort == 'name' %}selected{% endif %}>Nazwa</option>
-                                            <option value="price" {% if sort == 'price' %}selected{% endif %}>Cena</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="order" class="form-label">Kolejność</label>
-                                        <select class="form-select" id="order" name="order">
-                                            <option value="asc" {% if order == 'asc' %}selected{% endif %}>Rosnąco</option>
-                                            <option value="desc" {% if order == 'desc' %}selected{% endif %}>Malejąco</option>
-                                        </select>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Sortuj</button>
-                                </form>
+								<div class="mb-3">
+									<label for="sort" class="form-label">Sortuj po</label>
+									<select class="form-select" id="sort" name="sort">
+										<option value="name" {% if sort.by == 'name' %}selected{% endif %}>Nazwa</option>
+										<option value="price" {% if sort.by == 'price' %}selected{% endif %}>Cena</option>
+									</select>
+								</div>
+								<div class="mb-3">
+									<label for="order" class="form-label">Kolejność</label>
+									<select class="form-select" id="order" name="order">
+										<option value="asc" {% if sort.order == 'asc' %}selected{% endif %}>Rosnąco</option>
+										<option value="desc" {% if sort.order == 'desc' %}selected{% endif %}>Malejąco</option>
+									</select>
+								</div>
                             </div>
                         </div>
                     </div>
@@ -46,21 +56,18 @@ Sklep z ubraniami
                                 <h5 class="card-title">Cena</h5>
                             </div>
                             <div class="card-body">
-                                <form method="get">
-                                    <div class="mb-3">
-                                        <label for="price_from" class="form-label">Od</label>
-                                        <input type="number" class="form-control" id="price_from" name="price_from" value="0">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="price_to" class="form-label">Do</label>
-                                        <input type="number" class="form-control" id="price_to" name="price_to" value="1000">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Filtruj</button>
-                                </form>
+								<div class="mb-3">
+									<label for="price_from" class="form-label">Od</label>
+									<input type="number" class="form-control" id="price_from" name="price_from" value="{% if sort.price_from %}{{sort.price_from}}{% else %}0{% endif %}">
+								</div>
+								<div class="mb-3">
+									<label for="price_to" class="form-label">Do</label>
+									<input type="number" class="form-control" id="price_to" name="price_to" value="{% if sort.price_to %}{{sort.price_to}}{% else %}1000{% endif %}">
+								</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 mt-3">
+                    <div class="col-12 mt-3 mb-2">
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="card-title">Kategorie</h5>
@@ -68,7 +75,7 @@ Sklep z ubraniami
                             <div class="card-body">
                                 <ul class="list-group">
                                     {% for category in categories %}
-                                    <li class="list-group-item">
+                                    <li class="list-group-item" id="categories">
                                         <input type="checkbox" name="category" value="{{ category.id }}" {% if category.id in selected_categories %}checked{% endif %}>
                                         {{ category.name }}
                                     </li>
@@ -155,5 +162,49 @@ Sklep z ubraniami
 		</div>
 	</div>
 </main>
+
+<script>
+
+	document.getElementById('search').addEventListener('change', function() {
+		const url = new URL(window.location.href);
+		url.searchParams.set('search', this.value);
+		window.location.href = url;
+	});
+
+	document.getElementById('sort').addEventListener('change', function() {
+		const url = new URL(window.location.href);
+		url.searchParams.set('sort', this.value);
+		window.location.href = url;
+	});
+
+	document.getElementById('order').addEventListener('change', function() {
+		const url = new URL(window.location.href);
+		url.searchParams.set('order', this.value);
+		window.location.href = url;
+	});
+
+	document.getElementById('price_from').addEventListener('change', function() {
+		const url = new URL(window.location.href);
+		url.searchParams.set('price_from', this.value);
+		window.location.href = url;
+	});
+
+	document.getElementById('price_to').addEventListener('change', function() {
+		const url = new URL(window.location.href);
+		url.searchParams.set('price_to', this.value);
+		window.location.href = url;
+	});
+
+	document.querySelectorAll('input[name="category"]').forEach((category) => {
+		category.addEventListener('change', function() {
+			const url = new URL(window.location.href);
+			const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked')).map((category) => category.value);
+			url.searchParams.set('categories', selectedCategories.join(','));
+			window.location.href = url;
+		});
+	});
+
+
+</script>
 
 {% endblock %}

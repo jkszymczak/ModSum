@@ -10,20 +10,48 @@ from product.models import Product, Category
 class ShopMainPage(View):
     template_name = 'shop/index.html'
 
+    SORT_ORDER = {
+        'asc': '',
+        'desc': '-'
+    }
+
     def get(self, request, *args, **kwargs):
 
+        search_by_name = request.GET.get('search') or ''
+        sort_by = request.GET.get('sort') or 'name'
+        sort_order = request.GET.get('order') or 'asc'
+        price_from = request.GET.get('price_from') or 0
+        price_to = request.GET.get('price_to') or 1000
+        selected_categories = request.GET.getlist('categories') or []
+
+        if selected_categories != []:
+            selected_categories = selected_categories[0]
+            selected_categories = [int(category) for category in selected_categories.split(',') if category != '']
+
         products = Product.objects.all()
+        products = products.order_by(self.SORT_ORDER[sort_order] + sort_by)
+        products = products.filter(price__gte=price_from, price__lte=price_to)
+        products = products.filter(category__id__in=selected_categories) if selected_categories else products
+        products = products.filter(name__icontains=search_by_name) if search_by_name else products
+
         categories = Category.objects.all()
 
         paginator = Paginator(products, 8)
-
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
         content ={
             'user': request.user,
             'page_obj': page_obj,
-            'categories': categories
+            'search': search_by_name,
+            'categories': categories,
+            'selected_categories': selected_categories,
+            'sort': {
+                'by': sort_by,
+                'order': sort_order,
+                'price_from': price_from,
+                'price_to': price_to,
+            },
         }
 
         return render(request, self.template_name, content)
