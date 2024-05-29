@@ -5,11 +5,13 @@ from product.models import Product
 class Cart():
     def __init__(self, request):
         self.session = request.session
-        self.request = request
         cart = self.session.get('session_key')
-        if 'session_key' not in request.session:
+        if not cart:
             cart = self.session['session_key'] = {}
         self.cart = cart
+
+    def save(self):
+        self.session.modified = True
 
     def add(self, product_id, product_quantity):
         product_id = str(product_id)
@@ -19,17 +21,10 @@ class Cart():
         else:
             self.cart[product_id] = {'quantity': product_quantity}
 
-        self.session.modified = True
-
-        if self.request.user.is_authenticated:
-            user_profile = UserProfile.objects.get(user=self.request.user)
-            user_profile.old_cart = self.cart
-            user_profile.save()
+        self.save()
 
     def cart_total_price(self):
-
         total_price = 0
-
         for product_id, product_quantity in self.cart.items():
             product = Product.objects.get(id=product_id)
             total_price += product.price * product_quantity['quantity']
@@ -52,7 +47,8 @@ class Cart():
         product_id = str(product_id)
         product_quantity = int(product_quantity)
         self.cart[product_id]['quantity'] = product_quantity
-        self.session.modified = True
+
+        self.save()
 
         return self.cart
 
@@ -60,8 +56,10 @@ class Cart():
         product_id = str(product_id)
         if product_id in self.cart:
             del self.cart[product_id]
-            self.session.modified = True
+
+        self.save()
 
     def clear(self):
-        self.session['session_key'] = {}
-        self.session.modified = True
+        for key in list(self.cart.keys()):
+            del self.cart[key]
+        self.save()

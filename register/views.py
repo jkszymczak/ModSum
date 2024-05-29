@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.views import View
@@ -14,13 +14,12 @@ class RegisterView(View):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            create_profile(request, request.user, True)
             return redirect("/")
         return render(request, "register/register.html", {"form": form})
 
 class AccountView(View):
     def post(self, request):
-        profile = UserProfile.objects.get(user=request.user)
+        profile = get_object_or_404(UserProfile, user=request.user)
         profile_form = UserProfileForm(request.POST, instance=profile)
         if profile_form.is_valid():
             profile_form.save()

@@ -9,13 +9,13 @@ from register.views import (
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('shop.urls')),
+    path('admin/', admin.site.urls, name='admin'),
+    path('', include('shop.urls'), name='shop'),
     path('register/', RegisterView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
-    path('', include('product.urls')),
+    path('', include('product.urls'), name='product'),
     path('account/', AccountView.as_view(), name='account'),
-    path('', include('order.urls')),
+    path('', include('order.urls'), name='order'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

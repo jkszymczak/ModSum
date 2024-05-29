@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from django.urls import reverse
 from django.contrib import messages
@@ -13,6 +13,8 @@ class MyOrdersPage(View):
         template_name = 'my_orders.html'
 
         def get(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return redirect(f"{reverse('login')}?next={reverse('order:my_orders')}")
             orders = Order.objects.filter(user=request.user)
             content = {
                 'orders': orders
@@ -25,11 +27,11 @@ class OrderBillingAddressPage(View):
 
     def get(self, request, *args, **kwargs):
 
-        if request.user.is_authenticated:
-            profile = UserProfile.objects.get(user=request.user)
-            billing_address = UserBillingAddressForm(instance=profile)
-        else:
+        if not request.user.is_authenticated:
             return redirect(f"{reverse('login')}?next={reverse('order:billing_address')}")
+
+        profile = UserProfile.objects.get(user=request.user)
+        billing_address = UserBillingAddressForm(instance=profile)
 
         content = {
             'form': billing_address
@@ -59,12 +61,12 @@ class OrderPaymentPage(View):
 
     def post(self, request, *args, **kwargs):
 
+        if not request.user.is_authenticated:
+            return HttpResponse(status=401, content='Unauthorized')
+
         cart = Cart(request)
 
         billing_address = request.session['billing_address']
-
-
-        print(request.user.username)
 
         order = Order.objects.create(
             user = request.user,
@@ -90,7 +92,7 @@ class OrderPaymentPage(View):
 
         product_hash = hashlib.sha256(str(order.id).encode()).hexdigest()[:10]
 
-        messages.success(request, f'Zamówienie złożone. Twój numer zamówienia to: {product_hash}')
+        messages.success(request, f'Zamówienie złożone. Twój numer zamówienia to: {product_hash}', fail_silently=True)
 
         return redirect('shop:home')
 

@@ -22,7 +22,7 @@ from order.views import (
     OrderPaymentPage,
 )
 
-class ShowTestCases(TestCase):
+class ShopTestCases(TestCase):
 
     def test_home_url(self):
         url = reverse('shop:home')
