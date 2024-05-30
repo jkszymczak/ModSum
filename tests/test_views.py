@@ -23,6 +23,12 @@ from order.models import (
 )
 from shop.cart import Cart
 
+from shop.views import (
+    ShopMainPage,
+    ContactPage,
+    CartManager,
+)
+
 class MyOrdersPageTest(TestCase):
 
     def setUp(self):
@@ -269,3 +275,109 @@ class AccountViewTest(TestCase):
         self.assertEqual(profile.country, 'Test Country')
         self.assertEqual(profile.zipcode, '12345')
         self.assertEqual(profile.phone, '1234567890')
+
+class ShopMainPageTest(TestCase):
+    def test_shop_main_page(self):
+        response = self.client.get('/', {
+            'categories': '2',
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'shop/index.html')
+
+class ContactPageTest(TestCase):
+    def test_contact_page(self):
+        response = self.client.get(reverse('shop:contact'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'shop/contact.html')
+
+    def test_contact_page_post(self):
+        response = self.client.post(reverse('shop:contact'), {
+            'firstname': 'Test',
+            'lastname': 'User',
+            'email': 'test@test.com',
+            'subject': 'Zamówienie',
+            'message': 'Test message',
+        })
+        self.assertEqual(response.status_code, 200)
+
+class CartManagerTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.middleware = SessionMiddleware(lambda req: None)
+        self.category = Category.objects.create(
+            name='Test Category',
+            slug='test-category'
+        )
+
+        self.product = Product.objects.create(
+            category=self.category,
+            name='Test Product',
+            slug='test-product',
+            price=10.00,
+            image='test.jpg',
+            thumbnail='test.jpg'
+        )
+
+    def test_cart_summary(self):
+        request = self.factory.get('/cart')
+        s = SessionStore()
+        s.save()
+
+        request.session = s
+        cart_manager = CartManager()
+        response = cart_manager.cart_summary(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_cart_add(self):
+        request = self.factory.post('/cart/add/', {
+            'product_id': self.product.id,
+            'product_quantity': 1,
+        })
+        self.middleware.process_request(request)
+        request.session.save()
+        s = SessionStore()
+        s.save()
+
+        request.session = s
+        cart_manager = CartManager()
+        response = cart_manager.cart_add(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_cart_delete(self):
+        request = self.factory.post('/cart/add/', {
+            'product_id': self.product.id,
+            'product_quantity': 1,
+        })
+        self.middleware.process_request(request)
+        request.session.save()
+        s = SessionStore()
+        s.save()
+
+        request.session = s
+        cart_manager = CartManager()
+        response = cart_manager.cart_add(request)
+        request = self.factory.post('/cart/delete/', {
+            'product_id': self.product.id,
+        })
+        request.session = s
+        cart_manager = CartManager()
+        response = cart_manager.cart_delete(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_cart_update(self):
+        request = self.factory.post('/cart/add/', {
+            'product_id': self.product.id,
+            'product_quantity': 1,
+        })
+        self.middleware.process_request(request)
+        request.session.save()
+        cart = Cart(request)
+        cart.add(self.product.id, '1')
+        s = SessionStore()
+        s['session_key'] = cart.cart
+        s.save()
+        request.session = s
+        cart_manager = CartManager()
+        response = cart_manager.cart_update(request)
+        self.assertEqual(response.status_code, 200)
+

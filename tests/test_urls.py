@@ -1,12 +1,9 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
 from shop.views import (
-    cart_add,
-    cart_summary,
-    cart_delete,
-    cart_update,
     ShopMainPage,
     ContactPage,
+    CartManager,
 )
 
 from register.views import (
@@ -34,19 +31,19 @@ class ShopTestCases(TestCase):
 
     def test_cart_summary_url(self):
         url = reverse('shop:cart_summary')
-        self.assertEqual(resolve(url).func, cart_summary)
+        self.assertEqual(resolve(url).func, CartManager.cart_summary)
 
     def test_cart_add_url(self):
         url = reverse('shop:cart_add')
-        self.assertEqual(resolve(url).func, cart_add)
+        self.assertEqual(resolve(url).func, CartManager.cart_add)
 
     def test_cart_delete_url(self):
         url = reverse('shop:cart_delete')
-        self.assertEqual(resolve(url).func, cart_delete)
+        self.assertEqual(resolve(url).func, CartManager.cart_delete)
 
     def test_cart_update_url(self):
         url = reverse('shop:cart_update')
-        self.assertEqual(resolve(url).func, cart_update)
+        self.assertEqual(resolve(url).func, CartManager.cart_update)
 
 class RegisterTestCases(TestCase):
 

@@ -14,7 +14,8 @@ python manage.py runserver
 ```
 python manage.py test
 coverage run manage.py test
-coverage report
+coverage report -m
+coverage html
 ```
 
 # Default accounts

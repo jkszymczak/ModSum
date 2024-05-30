@@ -1,5 +1,6 @@
 from django.test import TestCase
 from order.forms import UserBillingAddressForm
+from shop.forms import ContactForm
 
 class OrderFormTest(TestCase):
     def test_order_form(self):
@@ -32,4 +33,25 @@ class OrderFormTest(TestCase):
         self.assertEqual(len(form.errors), 1)
         self.assertEqual(form.errors['address'], ['To pole jest wymagane.'])
 
+class ContactFormTest(TestCase):
+    def test_valid_contact_form(self):
+        form = ContactForm(data={
+            'firstname': 'Test',
+            'lastname': 'User',
+            'email': 'test@test.com',
+            'subject': 'Zamówienie',
+            'message': 'Test message',
+        })
 
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_contact_form(self):
+        form = ContactForm(data={})
+
+        self.assertFalse(form.is_valid())
+        self.assertEqual(len(form.errors), 5)
+        self.assertEqual(form.errors['firstname'], ['To pole jest wymagane.'])
+        self.assertEqual(form.errors['lastname'], ['To pole jest wymagane.'])
+        self.assertEqual(form.errors['email'], ['To pole jest wymagane.'])
+        self.assertEqual(form.errors['subject'], ['To pole jest wymagane.'])
+        self.assertEqual(form.errors['message'], ['To pole jest wymagane.'])

@@ -6,6 +6,7 @@ from product.models import (
     Product
 )
 from order.models import Order
+from shop.models import Contact
 import hashlib
 
 class OrderModelTest(TestCase):
@@ -64,3 +65,20 @@ class UserProfileTest(TestCase):
         self.assertEqual(user_profile.zipcode, None)
         self.assertEqual(user_profile.country, None)
         self.assertEqual(user_profile.__str__(), 'testuser')
+
+class ContactModelTest(TestCase):
+    def test_contact_model(self):
+        contact = Contact.objects.create(
+            firstname='Test',
+            lastname='User',
+            email='test@test.com',
+            subject='Test Subject',
+            message='Test Message',
+        )
+
+        self.assertEqual(contact.firstname, 'Test')
+        self.assertEqual(contact.lastname, 'User')
+        self.assertEqual(contact.email, 'test@test.com')
+        self.assertEqual(contact.subject, 'Test Subject')
+        self.assertEqual(contact.message, 'Test Message')
+        self.assertEqual(contact.__str__(), 'Test User')
