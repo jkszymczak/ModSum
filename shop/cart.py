@@ -50,8 +50,6 @@ class Cart():
 
         self.save()
 
-        return self.cart
-
     def delete(self, product_id):
         product_id = str(product_id)
         if product_id in self.cart:
