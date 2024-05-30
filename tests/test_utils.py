@@ -39,6 +39,8 @@ class CartTest(TestCase):
         cart = Cart(request)
         cart.add(self.product.id, '1')
         self.assertEqual(cart.cart, {'1': {'quantity': 1}})
+        cart.add(self.product.id, '1')
+        self.assertEqual(cart.cart, {'1': {'quantity': 2}})
 
     def test_cart_total_price(self):
         request = self.create_request()

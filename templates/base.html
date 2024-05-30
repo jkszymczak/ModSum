@@ -71,7 +71,14 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout">Wyloguj się</a></li>
+                            <li>
+                                <div class="text-center">
+                                    <form action="{% url 'logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Wyloguj się">
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
                     </li>
                     {% else  %}
@@ -87,7 +94,14 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" data-test="nav-sign-out" href="/logout" onclick="logout()">Wyloguj się</a></li>
+                                <li>
+                                    <div class="text-center">
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Wyloguj się">
+                                        </form>
+                                    </div>
+                                </li>
                             </ul>
                         </li>
                     {% endif %}
