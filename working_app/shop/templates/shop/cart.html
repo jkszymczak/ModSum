@@ -1,0 +1,98 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    Koszyk
+{% endblock %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if cart_products %}
+<div class="m-5">
+    <table class="table table-hover text-dark bg-light">
+        <thead>
+            <tr>
+                <th scope="col">Przedmiot</th>
+                <th scope="col">Ilość</th>
+                <th scope="col" class="text-end">Cena</th>
+                <th scope="col" class="text-end">Całkowita cena</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in cart_products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>
+                        <input type="number" min="1" max="99" class="form-control quantity" data-product="{{ product.id}}" value="{{ product.quantity }}">
+                    </td>
+                    <td class="text-end">{{ product.price }}zł</td>
+                    <td class="text-end">{{ product.total_price }}zł</td>
+                    <td>
+                        <a href="#" class="btn btn-danger text-end dalate_item" data-product="{{ product.id }}">Usuń</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+              <td class="col"></td>
+              <td class="col"></td>
+              <td class="col text-end"><strong>Całkowiecie:</strong></td>
+              <td class="col-md-2 text-end">{{ total_price }}zł</td>
+              <td class="col-md-1"></td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="float-end">
+        <a href="{% url 'order:billing_address' %}" class="btn btn-success">Przejdź do zapłaty</a>
+    </div>
+    {% else %}
+    <h2 class="mt-4 text-center">Twój koszyk jest pusty.</h2>
+    {% endif %}
+</div>
+
+
+<script>
+
+    document.querySelectorAll('.quantity').forEach(item => {
+        item.addEventListener('change', event => {
+            let product_id = item.getAttribute('data-product');
+            let product_quantity = item.value;
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url 'shop:cart_update' %}');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                }
+            };
+            xhr.onerror = function() {
+            };
+            xhr.send('product_id=' + encodeURIComponent(product_id) + '&product_quantity=' + encodeURIComponent(product_quantity) + '&csrfmiddlewaretoken=' + encodeURIComponent('{{ csrf_token }}') + '&action=post');
+        });
+    });
+
+    document.querySelectorAll('.dalate_item').forEach(item => {
+        item.addEventListener('click', event => {
+            event.preventDefault();
+            let product_id = item.getAttribute('data-product');
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '{% url 'shop:cart_delete' %}');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();
+                }
+            };
+            xhr.onerror = function() {
+            };
+            xhr.send('product_id=' + encodeURIComponent(product_id) + '&csrfmiddlewaretoken=' + encodeURIComponent('{{ csrf_token }}') + '&action=post');
+        });
+    });
+</script>
+
+{% endblock %}
+

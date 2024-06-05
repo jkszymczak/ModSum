@@ -5,7 +5,10 @@ services:
       - "8000:8000"
     develop:
       watch:
-        - action: sync
+        - action: sync+restart
           path: .
           target: /home/app
+        - action: rebuild
+          path: requirements.txt
+          target: /home/app/requirements.txt
       
