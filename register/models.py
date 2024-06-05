@@ -6,6 +6,8 @@ from django.db.models.signals import post_save
 
 
 class UserProfile(models.Model):
+	"""This class is responsible for storing the user profile data."""
+
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	full_name = models.CharField(max_length=255, null=True, blank=True)
 	email = models.CharField(max_length=255, null=True, blank=True)
@@ -20,6 +22,14 @@ class UserProfile(models.Model):
 		return self.user.username
 
 def create_profile(sender, instance, created, **kwargs):
+	"""This function is responsible for creating a user profile.
+
+	:param sender: User
+	:param instance: User
+	:param created: bool
+	:param kwargs: dict
+	"""
+
 	if created:
 		user_profile = UserProfile(user = instance)
 		user_profile.save()

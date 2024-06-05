@@ -9,6 +9,7 @@ from product.models import Product, Category
 from .forms import ContactForm
 
 class ShopMainPage(View):
+    """This class is responsible for displaying the main page of the shop."""
     template_name = 'shop/index.html'
 
     SORT_ORDER = {
@@ -17,6 +18,13 @@ class ShopMainPage(View):
     }
 
     def get(self, request, *args, **kwargs):
+        """This method is responsible for displaying the main page of the shop.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: HttpResponse object
+        """
 
         search_by_name = request.GET.get('search') or ''
         sort_by = request.GET.get('sort') or 'name'
@@ -58,15 +66,31 @@ class ShopMainPage(View):
         return render(request, self.template_name, content)
 
 class ContactPage(View):
+    """This class is responsible for displaying the contact page of the shop."""
+
     template_name = 'shop/contact.html'
 
     def get(self, request, *args, **kwargs):
+        """This method is responsible for displaying the contact page of the shop.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: HttpResponse object
+        """
 
         form = ContactForm()
 
         return render(request, self.template_name, {'form': form})
-    
+
     def post(self, request, *args, **kwargs):
+        """This method is responsible for sending a message from the contact page.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: HttpResponse object
+        """
 
         form = ContactForm(request.POST)
 
@@ -77,14 +101,27 @@ class ContactPage(View):
         return render(request, self.template_name, {'form': form})
 
 class CartManager(View):
+    """This class is responsible for managing the cart."""
 
     def cart_summary(self, request):
+        """This method is responsible for displaying the cart summary.
+
+        :param request: HttpRequest object
+        :return: HttpResponse object
+        """
+
         cart = Cart(request)
         cart_products = cart.get_products()
         total_price = cart.cart_total_price()
         return render(request, 'shop/cart.html', {'cart_products': cart_products, 'total_price': total_price})
 
     def cart_add(self, request):
+        """This method is responsible for adding a product to the cart.
+
+        :param request: HttpRequest object
+        :return: JsonResponse object
+        """
+
         cart = Cart(request)
 
         if request.method == 'POST':
@@ -102,6 +139,12 @@ class CartManager(View):
             return response
 
     def cart_delete(self, request):
+        """This method is responsible for deleting a product from the cart.
+
+        :param request: HttpRequest object
+        :return: JsonResponse object
+        """
+
         cart = Cart(request)
 
         if request.method == 'POST':
@@ -116,6 +159,12 @@ class CartManager(View):
             return response
 
     def cart_update(self, request):
+        """This method is responsible for updating the product quantity in the cart.
+
+        :param request: HttpRequest object
+        :return: JsonResponse object
+        """
+
         cart = Cart(request)
 
         if request.method == 'POST':

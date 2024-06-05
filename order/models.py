@@ -4,6 +4,8 @@ from product.models import Product
 import hashlib
 
 class Order(models.Model):
+	"""This class is responsible for storing the order data."""
+
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 	full_name = models.CharField(max_length=250)
 	email = models.EmailField(max_length=250)
@@ -15,6 +17,8 @@ class Order(models.Model):
 		return hashlib.sha256(str(self.id).encode()).hexdigest()[:10]
 
 class UserOrder(models.Model):
+	"""This class is responsible for storing the user order data."""
+
 	order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
 	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

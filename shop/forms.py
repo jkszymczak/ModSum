@@ -2,7 +2,10 @@ from django import forms
 from .models import Contact
 
 class ContactForm(forms.ModelForm):
+    """This class is responsible for creating a contact form."""
+
     class Meta:
+
         model = Contact
         fields = '__all__'
         labels = {

@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Contact(models.Model):
+    """This class is responsible for storing the contact form data."""
+
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
     email = models.EmailField()

@@ -2,6 +2,8 @@ from register.models import UserProfile
 from django import forms
 
 class UserBillingAddressForm(forms.ModelForm):
+    """This class is responsible for creating a user billing address form."""
+
     class Meta:
         model = UserProfile
         fields = ('address', 'email', 'city', 'state', 'country', 'zipcode')
@@ -23,6 +25,8 @@ class UserBillingAddressForm(forms.ModelForm):
         self.fields['zipcode'].required = True
 
 class PaymentForm(forms.Form):
+    """This class is responsible for creating a payment form."""
+
     PAYMENT_OPTIONS = (
         ('BackTransfer', 'Przelew bankowy'),
         ('PayPal', 'PayPal'),

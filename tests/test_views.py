@@ -252,6 +252,20 @@ class AccountViewTest(TestCase):
         response = self.client.get(self.account_url)
         self.assertEqual(response.status_code, 302)
 
+    def test_account_view_POST_unauthenticated_user(self):
+        response = self.client.post(self.account_url, {
+            'full_name': 'Test User',
+            'email': 'test@test.com',
+            'address': '123 Test St',
+            'city': 'Test City',
+            'state': 'TS',
+            'country': 'Test Country',
+            'zipcode': '12345',
+            'phone': '1234567890',
+        })
+
+        self.assertEqual(response.status_code, 302)
+
     def test_account_view_POST(self):
         self.client.login(username='testuser', password='12345')
         response = self.client.post(self.account_url, {

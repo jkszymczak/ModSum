@@ -5,6 +5,8 @@ from django.core.files import File
 from django.db import models
 
 class Category(models.Model):
+    """This class is responsible for storing the product categories."""
+
     name = models.CharField(max_length=255)
     slug = models.SlugField()
 
@@ -15,6 +17,8 @@ class Category(models.Model):
         return self.name
 
 class Product(models.Model):
+    """This class is responsible for storing the product data."""
+
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     slug = models.SlugField()
