@@ -31,19 +31,19 @@ class ShopTestCases(TestCase):
 
     def test_cart_summary_url(self):
         url = reverse('shop:cart_summary')
-        self.assertEqual(resolve(url).func, CartManager.cart_summary)
+        self.assertEqual(resolve(url).func.view_class.__name__, CartManager.__name__)
 
     def test_cart_add_url(self):
         url = reverse('shop:cart_add')
-        self.assertEqual(resolve(url).func, CartManager.cart_add)
+        self.assertEqual(resolve(url).func.view_class.__name__, CartManager.__name__)
 
     def test_cart_delete_url(self):
         url = reverse('shop:cart_delete')
-        self.assertEqual(resolve(url).func, CartManager.cart_delete)
+        self.assertEqual(resolve(url).func.view_class.__name__, CartManager.__name__)
 
     def test_cart_update_url(self):
         url = reverse('shop:cart_update')
-        self.assertEqual(resolve(url).func, CartManager.cart_update)
+        self.assertEqual(resolve(url).func.view_class.__name__, CartManager.__name__)
 
 class RegisterTestCases(TestCase):
 

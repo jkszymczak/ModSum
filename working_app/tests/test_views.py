@@ -339,13 +339,14 @@ class CartManagerTest(TestCase):
 
         request.session = s
         cart_manager = CartManager()
-        response = cart_manager.cart_summary(request)
+        response = cart_manager.get(request)
         self.assertEqual(response.status_code, 200)
 
     def test_cart_add(self):
         request = self.factory.post('/cart/add/', {
             'product_id': self.product.id,
             'product_quantity': 1,
+            'action': 'add',
         })
         self.middleware.process_request(request)
         request.session.save()
@@ -354,13 +355,14 @@ class CartManagerTest(TestCase):
 
         request.session = s
         cart_manager = CartManager()
-        response = cart_manager.cart_add(request)
+        response = cart_manager.post(request)
         self.assertEqual(response.status_code, 200)
 
     def test_cart_delete(self):
         request = self.factory.post('/cart/add/', {
             'product_id': self.product.id,
             'product_quantity': 1,
+            'action': 'add',
         })
         self.middleware.process_request(request)
         request.session.save()
@@ -369,19 +371,22 @@ class CartManagerTest(TestCase):
 
         request.session = s
         cart_manager = CartManager()
-        response = cart_manager.cart_add(request)
+        response = cart_manager.post(request)
         request = self.factory.post('/cart/delete/', {
             'product_id': self.product.id,
+            'action': 'delete',
         })
         request.session = s
         cart_manager = CartManager()
-        response = cart_manager.cart_delete(request)
+        cart_manager.delete(request)
+        response = cart_manager.post(request)
         self.assertEqual(response.status_code, 200)
 
     def test_cart_update(self):
         request = self.factory.post('/cart/add/', {
             'product_id': self.product.id,
             'product_quantity': 1,
+            'action': 'add',
         })
         self.middleware.process_request(request)
         request.session.save()
@@ -390,8 +395,14 @@ class CartManagerTest(TestCase):
         s = SessionStore()
         s['session_key'] = cart.cart
         s.save()
+        request = self.factory.post('/cart/update/', {
+            'product_id': self.product.id,
+            'product_quantity': 2,
+            'action': 'update',
+        })
         request.session = s
         cart_manager = CartManager()
-        response = cart_manager.cart_update(request)
+        cart_manager.put(request)
+        response = cart_manager.post(request)
         self.assertEqual(response.status_code, 200)
 

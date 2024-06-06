@@ -32,20 +32,19 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var addButton = document.getElementById('add-cart');
         addButton.addEventListener('click', function(e) {
             e.preventDefault();
-            var productId = addButton.value;
+            var product_id = addButton.value;
             var quantity = document.getElementById('quantity').value;
-            var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+            var csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', '{% url 'shop:cart_add' %}', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.setRequestHeader('X-CSRFToken', csrfToken);
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
@@ -55,12 +54,9 @@
             };
             xhr.onerror = function() {
             };
-            xhr.send('product_id=' + productId + '&product_quantity=' + quantity + '&action=post');
+            xhr.send('product_id=' + product_id + '&product_quantity=' + quantity + '&action=add');
         });
     });
-
-
-
 
 </script>
 

@@ -103,6 +103,56 @@ class ContactPage(View):
 class CartManager(View):
     """This class is responsible for managing the cart."""
 
+
+    def get(self, request, *args, **kwargs):
+        """This method is responsible for displaying the cart summary.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: HttpResponse object
+        """
+
+        return self.cart_summary(request)
+
+    def post(self, request, *args, **kwargs):
+        """This method is responsible for adding, deleting or updating the product in the cart.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: JsonResponse object
+        """
+
+        if request.POST.get('action') == 'add':
+            return self.cart_add(request)
+        elif request.POST.get('action') == 'delete':
+            return self.cart_delete(request)
+        elif request.POST.get('action') == 'update':
+            return self.cart_update(request)
+
+    def delete(self, request, *args, **kwargs):
+        """This method is responsible for deleting a product from the cart.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: JsonResponse object
+        """
+
+        return self.cart_delete(request)
+
+    def put(self, request, *args, **kwargs):
+        """This method is responsible for updating the product quantity in the cart.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: JsonResponse object
+        """
+
+        return self.cart_update(request)
+
     def cart_summary(self, request):
         """This method is responsible for displaying the cart summary.
 
@@ -124,19 +174,18 @@ class CartManager(View):
 
         cart = Cart(request)
 
-        if request.method == 'POST':
-            product_id = int(request.POST.get('product_id'))
-            product_quantity = int(request.POST.get('product_quantity'))
+        product_id = int(request.POST.get('product_id'))
+        product_quantity = int(request.POST.get('product_quantity'))
 
-            product = get_object_or_404(Product, id=product_id)
+        product = get_object_or_404(Product, id=product_id)
 
-            cart.add(product.id, product_quantity)
+        cart.add(product.id, product_quantity)
 
-            cart_quantity = cart.__len__()
+        cart_quantity = cart.__len__()
 
-            response = JsonResponse({'cart_quantity': cart_quantity})
-            messages.success(request, 'Produkt dodany do koszyka', fail_silently=True)
-            return response
+        response = JsonResponse({'cart_quantity': cart_quantity})
+        messages.success(request, 'Produkt dodany do koszyka', fail_silently=True)
+        return response
 
     def cart_delete(self, request):
         """This method is responsible for deleting a product from the cart.
@@ -147,16 +196,15 @@ class CartManager(View):
 
         cart = Cart(request)
 
-        if request.method == 'POST':
-            product_id = int(request.POST.get('product_id'))
+        product_id = int(request.POST.get('product_id'))
 
-            product = get_object_or_404(Product, id=product_id)
+        product = get_object_or_404(Product, id=product_id)
 
-            cart.delete(product.id)
+        cart.delete(product.id)
 
-            response = JsonResponse({'product:': product_id})
-            messages.success(request, 'Produkt usunięty z koszyka', fail_silently=True)
-            return response
+        response = JsonResponse({'product:': product_id})
+        messages.success(request, 'Produkt usunięty z koszyka', fail_silently=True)
+        return response
 
     def cart_update(self, request):
         """This method is responsible for updating the product quantity in the cart.
@@ -167,14 +215,13 @@ class CartManager(View):
 
         cart = Cart(request)
 
-        if request.method == 'POST':
-            product_id = str(request.POST.get('product_id'))
-            product_quantity = int(request.POST.get('product_quantity'))
+        product_id = str(request.POST.get('product_id'))
+        product_quantity = int(request.POST.get('product_quantity'))
 
-            product = get_object_or_404(Product, id=product_id)
+        product = get_object_or_404(Product, id=product_id)
 
-            cart.update(product.id, product_quantity)
+        cart.update(product.id, product_quantity)
 
-            response = JsonResponse({'product_quantity': product_quantity})
-            messages.success(request, 'Koszyk zaktualizowany', fail_silently=True)
-            return response
+        response = JsonResponse({'product_quantity': product_quantity})
+        messages.success(request, 'Koszyk zaktualizowany', fail_silently=True)
+        return response

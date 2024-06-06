@@ -11,6 +11,7 @@
 
 {% if cart_products %}
 <div class="m-5">
+    {% csrf_token %}
     <table class="table table-hover text-dark bg-light">
         <thead>
             <tr>
@@ -31,7 +32,7 @@
                     <td class="text-end">{{ product.price }}zł</td>
                     <td class="text-end">{{ product.total_price }}zł</td>
                     <td>
-                        <a href="#" class="btn btn-danger text-end dalate_item" data-product="{{ product.id }}">Usuń</a>
+                        <a href="#" class="btn btn-danger text-end delate_item" data-product="{{ product.id }}">Usuń</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -61,9 +62,11 @@
         item.addEventListener('change', event => {
             let product_id = item.getAttribute('data-product');
             let product_quantity = item.value;
+            let csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
             let xhr = new XMLHttpRequest();
             xhr.open('POST', '{% url 'shop:cart_update' %}');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', csrf_token);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     location.reload();
@@ -71,17 +74,19 @@
             };
             xhr.onerror = function() {
             };
-            xhr.send('product_id=' + encodeURIComponent(product_id) + '&product_quantity=' + encodeURIComponent(product_quantity) + '&csrfmiddlewaretoken=' + encodeURIComponent('{{ csrf_token }}') + '&action=post');
+            xhr.send('product_id=' + product_id + '&product_quantity=' + product_quantity + '&action=update');
         });
     });
 
-    document.querySelectorAll('.dalate_item').forEach(item => {
+    document.querySelectorAll('.delate_item').forEach(item => {
         item.addEventListener('click', event => {
             event.preventDefault();
             let product_id = item.getAttribute('data-product');
+            let csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
             let xhr = new XMLHttpRequest();
             xhr.open('POST', '{% url 'shop:cart_delete' %}');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRFToken', encodeURIComponent('{{ csrf_token }}'));
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     location.reload();
@@ -89,7 +94,7 @@
             };
             xhr.onerror = function() {
             };
-            xhr.send('product_id=' + encodeURIComponent(product_id) + '&csrfmiddlewaretoken=' + encodeURIComponent('{{ csrf_token }}') + '&action=post');
+            xhr.send('product_id=' + product_id + '&action=delete');
         });
     });
 </script>
