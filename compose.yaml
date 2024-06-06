@@ -1,0 +1,30 @@
+services:
+  site_ref:
+    profiles: [all,ref]
+    build: ./working_app
+    ports:
+      - "8000:8000"
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./working_app
+          target: /home/app
+        - action: rebuild
+          path: requirements.txt
+          target: /home/app/requirements.txt
+
+  site_broken :
+    profiles: [all,broken]
+    build: ./app_testing
+    ports:
+      - "7000:8000"
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./app_testing
+          target: /home/app
+        - action: rebuild
+          path: requirements.txt
+          target: /home/app/requirements.txt
+  
+      
