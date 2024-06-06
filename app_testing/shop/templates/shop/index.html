@@ -134,7 +134,7 @@ Sklep z ubraniami
 								{% endif %}
 
 								<li class="page-item active">
-									<a class="page-link" href="#">Strona {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a>
+									<a class="page-link" href="#">Strona {{ page_obj.number }} z {{ page_obj.paginator.num_pages }}</a>
 								</li>
 
 								{% if page_obj.has_next %}

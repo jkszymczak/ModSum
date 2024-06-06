@@ -15,6 +15,14 @@ class UserBillingAddressForm(forms.ModelForm):
             'country': 'Kraj',
             'zipcode': 'Kod pocztowy',
         }
+        widgets = {
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Wprowadź adres'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Wprowadź email'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Wprowadź miasto'}),
+            'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Wprowadź województwo'}),
+            'country': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Wprowadź kraj'}),
+            'zipcode': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Wprowadź kod pocztowy', 'pattern': '[0-9]{2}-[0-9]{3}'}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(UserBillingAddressForm, self).__init__(*args, **kwargs)

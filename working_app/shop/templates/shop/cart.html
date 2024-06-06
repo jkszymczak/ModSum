@@ -25,7 +25,10 @@
         <tbody>
             {% for product in cart_products %}
                 <tr>
-                    <td>{{ product.name }}</td>
+                    <td>
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail" width="50px">
+                        {{ product.name }}
+                    </td>
                     <td>
                         <input type="number" min="1" max="99" class="form-control quantity" data-product="{{ product.id}}" value="{{ product.quantity }}">
                     </td>
