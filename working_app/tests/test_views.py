@@ -22,7 +22,7 @@ from order.models import (
     UserOrder,
 )
 from shop.cart import Cart
-
+from shop.models import Contact
 from shop.views import (
     ShopMainPage,
     ContactPage,
@@ -406,3 +406,52 @@ class CartManagerTest(TestCase):
         response = cart_manager.post(request)
         self.assertEqual(response.status_code, 200)
 
+class AdminUtilsTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('shop:admin')
+
+    def test_get_admin_utils_page(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'shop/admin.html')
+
+    def test_post_deletes_all_data(self):
+        user = User.objects.create(username='testuser', password='12345')
+        category = Category.objects.create(name='Test Category', slug='test-category')
+        product = Product.objects.create(
+            category=category,
+            name='Test Product',
+            slug='test-product',
+            price=10.00,
+            image='test.jpg',
+        )
+        order = Order.objects.create(
+            user=user,
+            full_name='Test User',
+            email='testuser@test.com',
+            shipping_address='Test Address',
+            amount_paid=100.00,
+        )
+        UserOrder.objects.create(
+            order=order,
+            product=product,
+            user=user,
+            quantity=1,
+            price=10.00
+        )
+        Contact.objects.create(
+            firstname='Test',
+            lastname='User',
+            email='test@test.com',
+            subject='Test Subject',
+            message='Test Message',
+        )
+
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertEqual(UserOrder.objects.count(), 0)
+        self.assertEqual(Contact.objects.count(), 0)

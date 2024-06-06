@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.views import View
@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from django.contrib import messages
 from .cart import Cart
 from product.models import Product, Category
+from .models import Contact
+from order.models import Order, UserOrder
 from .forms import ContactForm
 
 class ShopMainPage(View):
@@ -224,4 +226,43 @@ class CartManager(View):
 
         response = JsonResponse({'product_quantity': product_quantity})
         messages.success(request, 'Koszyk zaktualizowany', fail_silently=True)
+        return response
+
+class AdminUtils(View):
+    """This class is responsible for managing the admin panel."""
+
+    template_name = 'shop/admin.html'
+
+    def get(self, request, *args, **kwargs):
+        """This method is responsible for displaying the admin panel.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: HttpResponse object
+        """
+
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        """This method is responsible for deleting all data.
+
+        :param request: HttpRequest object
+        :param args: list of arguments
+        :param kwargs: dictionary of keyword arguments
+        :return: JsonResponse object
+        """
+
+        orders = Order.objects.all()
+        user_orders = UserOrder.objects.all()
+        contacts = Contact.objects.all()
+
+        orders.delete()
+        user_orders.delete()
+        contacts.delete()
+
+        messages.success(request, 'Dane zostały usunięte', fail_silently=True)
+
+        response = JsonResponse({'message': 'Dane zostały usunięte'})
+
         return response
