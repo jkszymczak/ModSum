@@ -16,6 +16,8 @@ urlpatterns = [
     path('', include('product.urls'), name='product'),
     path('account/', AccountView.as_view(), name='account'),
     path('', include('order.urls'), name='order'),
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('product.api_urls'), name='api'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
