@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2dbf1586-9e48-4221-b46b-48eed7ec0130" name="Changes" comment="Made first part of selenium tests. Login Register and products">
+    <list default="true" id="2dbf1586-9e48-4221-b46b-48eed7ec0130" name="Changes" comment="addd selenium do requirements.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_selenium.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_selenium.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,42 +35,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_home_page.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_login.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_login_elements.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_login_inputs.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_login_title.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_logout.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_product_show_detailed.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_products_show.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_password1_input.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_password2_input.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_submitButton_input.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_username_input.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_inputs.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_isLoginText.executor&quot;: &quot;Run&quot;,
-    &quot;Django tests.Test: tests.test_selenium.SeleniumTests.test_register_title.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;dev-api&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Format Kompa (dane)/Studia/CPS/CPS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Django Server.working_app.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_filter_category.executor": "Debug",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_filter_name.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_filter_price.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_home_page.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_login.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_login_elements.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_login_inputs.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_login_title.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_logout.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_product_show_detailed.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_products_show.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_password1_input.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_password2_input.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_submitButton_input.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_has_username_input.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_inputs.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_isLoginText.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_register_title.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_delete_product.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_duplicate_product.executor": "Run",
+    "Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_view.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev-api",
+    "last_opened_file_path": "E:/Format Kompa (dane)/Studia/CPS/CPS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Django Server.working_app">
-    <configuration name="Test: tests.test_selenium.SeleniumTests" type="DjangoTestsConfigurationType" temporary="true">
+}]]></component>
+  <component name="RunManager" selected="Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_delete_product">
+    <configuration name="Test: tests.test_selenium.SeleniumTests.test_filter_category" type="DjangoTestsConfigurationType" temporary="true">
       <module name="working_app" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,14 +91,14 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="tests.test_selenium.SeleniumTests" />
+      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_filter_category" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test: tests.test_selenium.SeleniumTests.test_product_show_detailed" type="DjangoTestsConfigurationType" temporary="true">
+    <configuration name="Test: tests.test_selenium.SeleniumTests.test_filter_price" type="DjangoTestsConfigurationType" temporary="true">
       <module name="working_app" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -104,14 +112,14 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_product_show_detailed" />
+      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_filter_price" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test: tests.test_selenium.SeleniumTests.test_products_show" type="DjangoTestsConfigurationType" temporary="true">
+    <configuration name="Test: tests.test_selenium.SeleniumTests.test_shopping_cart_delete_product" type="DjangoTestsConfigurationType" temporary="true">
       <module name="working_app" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,14 +133,14 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_products_show" />
+      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_shopping_cart_delete_product" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test: tests.test_selenium.SeleniumTests.test_register" type="DjangoTestsConfigurationType" temporary="true">
+    <configuration name="Test: tests.test_selenium.SeleniumTests.test_shopping_cart_duplicate_product" type="DjangoTestsConfigurationType" temporary="true">
       <module name="working_app" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -146,14 +154,14 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_register" />
+      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_shopping_cart_duplicate_product" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
       <option name="OPTIONS" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Test: tests.test_selenium.SeleniumTests.test_register_inputs" type="DjangoTestsConfigurationType" temporary="true">
+    <configuration name="Test: tests.test_selenium.SeleniumTests.test_shopping_cart_view" type="DjangoTestsConfigurationType" temporary="true">
       <module name="working_app" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -167,7 +175,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_register_inputs" />
+      <option name="TARGET" value="tests.test_selenium.SeleniumTests.test_shopping_cart_view" />
       <option name="SETTINGS_FILE" value="" />
       <option name="CUSTOM_SETTINGS" value="false" />
       <option name="USE_OPTIONS" value="false" />
@@ -225,11 +233,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_product_show_detailed" />
-        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_products_show" />
-        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests" />
-        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_register" />
-        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_register_inputs" />
+        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_delete_product" />
+        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_duplicate_product" />
+        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_shopping_cart_view" />
+        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_filter_category" />
+        <item itemvalue="Django tests.Test: tests.test_selenium.SeleniumTests.test_filter_price" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +259,7 @@
       <workItem from="1712152840953" duration="2914000" />
       <workItem from="1718527367271" duration="12201000" />
       <workItem from="1718653048561" duration="40000" />
-      <workItem from="1718827278100" duration="120000" />
+      <workItem from="1718827278100" duration="4904000" />
     </task>
     <task id="LOCAL-00001" summary="Made first part of selenium tests. Login Register and products">
       <option name="closed" value="true" />
@@ -261,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1718549047698</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="addd selenium do requirements.txt">
+      <option name="closed" value="true" />
+      <created>1718827623846</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1718827623846</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,9 +285,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Made first part of selenium tests. Login Register and products" />
-    <option name="LAST_COMMIT_MESSAGE" value="Made first part of selenium tests. Login Register and products" />
+    <MESSAGE value="addd selenium do requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="addd selenium do requirements.txt" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_shopping_cart_delete_product.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_shopping_cart_delete_product Coverage Results" MODIFIED="1718832207031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_home_page.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_home_page Coverage Results" MODIFIED="1718537493680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_register_has_submitButton_input.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_register_has_submitButton_input Coverage Results" MODIFIED="1718546749411" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_login.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_login Coverage Results" MODIFIED="1718544625307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
@@ -286,8 +304,13 @@
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_product_show_detailed.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_product_show_detailed Coverage Results" MODIFIED="1718548899711" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_login_inputs.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_login_inputs Coverage Results" MODIFIED="1718538968022" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_products_show.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_products_show Coverage Results" MODIFIED="1718548559522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_filter_price.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_filter_price Coverage Results" MODIFIED="1718829343970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_filter_category.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_filter_category Coverage Results" MODIFIED="1718829643027" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_login_title.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_login_title Coverage Results" MODIFIED="1718538301021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_register_title.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_register_title Coverage Results" MODIFIED="1718546424613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_register_inputs.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_register_inputs Coverage Results" MODIFIED="1718546977972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_shopping_cart_view.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_shopping_cart_view Coverage Results" MODIFIED="1718830183974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_shopping_cart_duplicate_product.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_shopping_cart_duplicate_product Coverage Results" MODIFIED="1718830692995" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/working_app$Test__tests_test_selenium_SeleniumTests_test_filter_name.coverage" NAME="Test: tests.test_selenium.SeleniumTests.test_filter_name Coverage Results" MODIFIED="1718828525107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
