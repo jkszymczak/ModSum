@@ -15,8 +15,8 @@ class ShopMainPage(View):
     template_name = 'shop/index.html'
 
     SORT_ORDER = {
-        'asc': '',
-        'desc': '-'
+        'asc': '-',
+        'desc': ''
     }
 
     def get(self, request, *args, **kwargs):
@@ -33,23 +33,30 @@ class ShopMainPage(View):
         sort_order = request.GET.get('order') or 'asc'
         price_from = request.GET.get('price_from') or 0
         price_to = request.GET.get('price_to') or 1000
-        selected_categories = request.GET.getlist('categories') or []
+        selected_categories = request.GET.getlist('categories')
 
         if selected_categories != []:
             selected_categories = selected_categories[0]
-            selected_categories = [int(category) for category in selected_categories.split(',') if category != '']
+            for category in selected_categories.split(','):
+                if category == '':
+                    continue
+                selected_categories = [int(category)]
 
         products = Product.objects.all()
         products = products.order_by(self.SORT_ORDER[sort_order] + sort_by)
         products = products.filter(price__gte=price_from, price__lte=price_to)
         products = products.filter(category__id__in=selected_categories) if selected_categories else products
-        products = products.filter(name__icontains=search_by_name) if search_by_name else products
+        products = products.exclude(name__icontains=search_by_name) if search_by_name else products
 
         categories = Category.objects.all()
 
-        paginator = Paginator(products, 8)
+        paginator = Paginator(products, 6)
+        total_pages = paginator.num_pages
         page_number = request.GET.get('page')
+        if not page_number:
+            page_number = total_pages
         page_obj = paginator.get_page(page_number)
+
 
         content ={
             'user': request.user,

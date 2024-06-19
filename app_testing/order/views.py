@@ -124,7 +124,7 @@ class OrderPaymentPage(View):
                 order = order,
                 product = product,
                 user = request.user,
-                quantity = product.quantity,
+                quantity = abs(product.quantity),
                 price = product.price
             )
             user_order.save()
