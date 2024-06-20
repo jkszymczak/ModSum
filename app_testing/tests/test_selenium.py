@@ -9,17 +9,22 @@ import time
 
 from selenium.webdriver.support.wait import WebDriverWait
 
+from order.models import Order, UserOrder
 from product.models import Category, Product
 from register.models import UserProfile
+from shop.cart import Cart
+from shop.models import Contact
 
 
 class SeleniumTests(LiveServerTestCase):
+    id_product = 0
 
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = webdriver.Chrome()
         cls.selenium.implicitly_wait(20)
+        # cls.setUp(cls)
 
     @classmethod
     def tearDownClass(cls):
@@ -27,6 +32,15 @@ class SeleniumTests(LiveServerTestCase):
         super().tearDownClass()
 
     def setUp(self):
+        User.objects.all().delete()
+        UserProfile.objects.all().delete()
+        Category.objects.all().delete()
+        Product.objects.all().delete()
+        Order.objects.all().delete()
+        UserOrder.objects.all().delete()
+        Contact.objects.all().delete()
+        # Cart.objects.all().delete()
+
         self.user = User.objects.create_user(username='test1', password='haslo12345')
         # Jeśli chcesz, możesz również dodać dane do profilu użytkownika:
         self.user_profile = UserProfile.objects.create(
@@ -77,6 +91,11 @@ class SeleniumTests(LiveServerTestCase):
             # Tutaj podaj ścieżkę do miniatury obrazu, który chcesz przetestować
             date_added='2022-01-01 12:00:00'
         )
+
+        SeleniumTests.id_product += 3
+
+    # def tearDown(self):
+    #     self.selenium.quit()
 
     ####################### Login ########################
     def test_home_page(self):
@@ -273,14 +292,18 @@ class SeleniumTests(LiveServerTestCase):
 
     def test_product_show_detailed(self):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
+        # time.sleep(200)
+        print(SeleniumTests.id_product)
+
         # Znalezienie i kliknięcie linku do produktu
         try:
-            product_link = self.selenium.find_element(By.XPATH, "//a[@href='/product/1' and @class='card w-100 h-100']")
+            product_link = self.selenium.find_element(By.XPATH, f"//a[@href='/product/{SeleniumTests.id_product-2}' and @class='card w-100 h-100']")
             product_link.click()
             time.sleep(2)  # Poczekaj na załadowanie nowej strony
         except Exception as e:
             self.fail(f"Product link not found or could not be clicked: {e}")
 
+        # time.sleep(200)
         # Sprawdzenie czy strona produktu się załadowała
         assert 'Test Product 1' in self.selenium.page_source
         assert 'Description for test product 1' in self.selenium.page_source  # Jest tylko na stronie konkretnego produktu
@@ -364,7 +387,7 @@ class SeleniumTests(LiveServerTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         # Znalezienie i kliknięcie linku do produktu
         try:
-            product_link = self.selenium.find_element(By.XPATH, "//a[@href='/product/1' and @class='card w-100 h-100']")
+            product_link = self.selenium.find_element(By.XPATH, f"//a[@href='/product/{SeleniumTests.id_product-2}' and @class='card w-100 h-100']")
             product_link.click()
             time.sleep(2)  # Poczekaj na załadowanie nowej strony
         except Exception as e:
@@ -396,7 +419,7 @@ class SeleniumTests(LiveServerTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         # Znalezienie i kliknięcie linku do produktu
         try:
-            product_link = self.selenium.find_element(By.XPATH, "//a[@href='/product/1' and @class='card w-100 h-100']")
+            product_link = self.selenium.find_element(By.XPATH, f"//a[@href='/product/{SeleniumTests.id_product-2}' and @class='card w-100 h-100']")
             product_link.click()
             time.sleep(2)  # Poczekaj na załadowanie nowej strony
         except Exception as e:
@@ -433,7 +456,7 @@ class SeleniumTests(LiveServerTestCase):
         self.selenium.get('%s%s' % (self.live_server_url, '/'))
         # Znalezienie i kliknięcie linku do produktu
         try:
-            product_link = self.selenium.find_element(By.XPATH, "//a[@href='/product/1' and @class='card w-100 h-100']")
+            product_link = self.selenium.find_element(By.XPATH, f"//a[@href='/product/{SeleniumTests.id_product-2}' and @class='card w-100 h-100']")
             product_link.click()
             time.sleep(2)  # Poczekaj na załadowanie nowej strony
         except Exception as e:
