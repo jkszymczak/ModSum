@@ -31,8 +31,8 @@ class ShopMainPage(View):
         search_by_name = request.GET.get('search') or ''
         sort_by = request.GET.get('sort') or 'name'
         sort_order = request.GET.get('order') or 'asc'
-        price_from = request.GET.get('price_from') or 0
-        price_to = request.GET.get('price_to') or 1000
+        # price_from = request.GET.get('price_from') or 0
+        # price_to = request.GET.get('price_to') or 1000
         selected_categories = request.GET.getlist('categories')
 
         if selected_categories != []:
@@ -44,7 +44,7 @@ class ShopMainPage(View):
 
         products = Product.objects.all()
         products = products.order_by(self.SORT_ORDER[sort_order] + sort_by)
-        products = products.filter(price__gte=price_from, price__lte=price_to)
+        # products = products.filter(price__gte=price_from, price__lte=price_to)
         products = products.filter(category__id__in=selected_categories) if selected_categories else products
         products = products.exclude(name__icontains=search_by_name) if search_by_name else products
 
@@ -67,8 +67,8 @@ class ShopMainPage(View):
             'sort': {
                 'by': sort_by,
                 'order': sort_order,
-                'price_from': price_from,
-                'price_to': price_to,
+                # 'price_from': price_from,
+                # 'price_to': price_to,
             },
         }
 

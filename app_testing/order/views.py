@@ -102,14 +102,14 @@ class OrderPaymentPage(View):
         :return: HttpResponse object
         """
 
-        if not request.user.is_authenticated:
-            return HttpResponse(status=401, content='Unauthorized')
+        # if not request.user.is_authenticated:
+        #     return HttpResponse(status=401, content='Unauthorized')
 
         cart = Cart(request)
 
         billing_address = request.session['billing_address']
 
-        order = Order.objects.create(
+        order = Order(
             user = request.user,
             full_name = request.user.username,
             email = billing_address['email'],
@@ -117,19 +117,19 @@ class OrderPaymentPage(View):
             amount_paid = cart.cart_total_price(),
         )
 
-        order.save()
+        # order.save()
 
-        for product in cart.get_products():
-            user_order = UserOrder.objects.create(
-                order = order,
-                product = product,
-                user = request.user,
-                quantity = abs(product.quantity),
-                price = product.price
-            )
-            user_order.save()
+        # for product in cart.get_products():
+        #     user_order = UserOrder.objects.create(
+        #         order = order,
+        #         product = product,
+        #         user = request.user,
+        #         quantity = abs(product.quantity),
+        #         price = product.price
+        #     )
+            # user_order.save()
 
-        cart.clear()
+        # cart.clear()
 
         product_hash = hashlib.sha256(str(order.id).encode()).hexdigest()[:10]
 
