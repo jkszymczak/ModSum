@@ -455,7 +455,7 @@ class SeleniumTests(LiveServerTestCase):
         # # Kliknięcie w przycisk 'Usuń' dla produktu w koszyku
         # try:
         #     delete_button = self.selenium.find_element(By.XPATH,
-        #                                           "//a[@data-product='1']")
+        #                                           "//a[@data-product='1' and @class='btn btn-danger text-end delate_item']")
         #     delete_button.click()
         #     time.sleep(2)  # Poczekaj na wykonanie akcji usunięcia
         # except Exception as e:
