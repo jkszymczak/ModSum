@@ -1,4 +1,4 @@
-from python:bookworm
+from python:latest
 expose 8000
 copy requirements.txt /home/app/
 copy . /home/app

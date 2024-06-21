@@ -20,6 +20,7 @@
           name = "Python";
           buildInputs = with pkgs; [
             (python311.withPackages libs)
+            jmeter
           ];
         };
 
