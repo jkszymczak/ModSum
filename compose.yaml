@@ -1,6 +1,5 @@
 services:
-  site_ref:
-    profiles: [all,ref]
+  ref:
     build: ./working_app
     ports:
       - "8000:8000"
@@ -13,8 +12,7 @@ services:
           path: requirements.txt
           target: /home/app/requirements.txt
 
-  site_broken :
-    profiles: [all,broken]
+  broken :
     build: ./app_testing
     ports:
       - "7000:8000"
