@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    Admin Panel
+{% endblock %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main class="container mb-3">
+    <h2 class="text-center">Admin panel</h2>
+
+    {% csrf_token %}
+
+    <button id="delete-button" class="btn btn-danger">Wyczyść wszystkie dane użytkowników</button>
+
+</main>
+
+<script>
+    document.querySelector('#delete-button').addEventListener('click', function() {
+        let csrf_token = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '{% url 'shop:admin' %}', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', csrf_token);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                location.reload();
+            }
+        };
+        xhr.onerror = function() {
+        };
+        xhr.send();
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Sklep z ubraniami{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+</head>
+
+<body class="bg-dark text-light d-flex flex-column min-vh-100">
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <nav class="navbar  navbar-expand-lg navbar-dark bg-secondary mb-5">
+        <div class="container">
+            <a title="Shop" class="navbar-brand h1" href="/">
+                MODA Z PIANKĄ
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-test="nav-home" aria-current="page" href="/">Strona główna</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-test="nav-contact" href="{% url 'shop:contact' %}">Kontakt</a>
+                    </li>
+                    {% if user.username == '' %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-test="nav-sign-in" href="/login">Zaloguj się</a>
+                    </li>
+                    {% elif user.username == 'admin' %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-test="nav-menu" id="menu" role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="menu">
+                            <li><a class="dropdown-item" data-test="nav-my-account" href="{% url 'account' %}">Moje konto</a></li>
+                            <li><a class="dropdown-item" data-test="nav-my-orders" href="{% url 'order:my_orders' %}">Moje zamówienia</a></li>
+                            <hr>
+                            <li><a class="dropdown-item" data-test="nav-my-orders" href="{% url 'shop:admin' %}">Administracja</a></li>
+                            <hr>
+                            <li>
+                                <a class="dropdown-item" data-test="nav-admin-dashboard" href="/admin">
+                                    Panel
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" data-test="nav-admin-categories"
+                                    href="/admin/product/category/">Kategorie
+                                </a>
+                            </li>
+                            <li><a class="dropdown-item" data-test="nav-admin-products" href="/admin/product/product/">Produkty</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-orders" href="/admin/order/order/">Zamówienia</a></li>
+                            <li><a class="dropdown-item" data-test="nav-admin-users" href="/admin/auth/user/">Użytkownicy</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <div class="text-center">
+                                    <form action="{% url 'logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Wyloguj się">
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else  %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-test="nav-menu" id="menu" role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="menu">
+                                <li><a class="dropdown-item" data-test="nav-my-account" href="{% url 'account' %}">Moje konto</a></li>
+                                <li><a class="dropdown-item" data-test="nav-my-orders" href="{% url 'order:my_orders' %}">Moje zamówienia</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="submit" value="Wyloguj się">
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                    {% if cart %}
+                    <li>
+                        <a href="{% url 'shop:cart_summary' %}" class="btn btn-secondary"><i class="bi-cart-fill me-1"></i>
+                            Koszyk
+                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}
+
+                        </span></a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    {% block content %}
+
+    bazowa strona
+
+    {% endblock %}
+
+    <footer class="bg-secondary text-light text-center p-3 mt-auto">
+        <div class="container">
+            <p class="m-0">Wszelkie prawa zastrzeżone © 2024</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

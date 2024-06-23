@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+    Logowanie
+
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <form method="POST" class="form-group col-lg-4 col-10 mt-5 p-5 border border-light">
+
+                {% csrf_token %}
+                {{form|crispy}}
+                <p class="py-4">Nie masz jeszcze konta? Stwórz je <a class="text-decoration-none" href="/register">Tutaj</a></p>
+                <button type="submit" class="btn btn-success">Zaloguj</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}
