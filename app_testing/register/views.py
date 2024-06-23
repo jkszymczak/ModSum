@@ -27,7 +27,7 @@ class RegisterView(View):
 
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            # form.save() # This line is commented out to break the registration process
             return redirect("/")
         return render(request, "register/register.html", {"form": form})
 

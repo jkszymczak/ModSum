@@ -13,34 +13,6 @@
 <main class="container mb-3">
     <h2 class="text-center">Admin panel</h2>
 
-    <h3>Konta użytkowników do testowania</h3>
-    <table class="table mt-4 table-hover text-dark bg-light">
-        <thead>
-            <tr>
-                <th>Login</th>
-                <th>Hasło</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>admin</td>
-                <td>admin</td>
-            </tr>
-            <tr>
-                <td>test1</td>
-                <td>haslo12345</td>
-            </tr>
-            <tr>
-                <td>test2</td>
-                <td>haslo12345</td>
-            </tr>
-            <tr>
-                <td>test3</td>
-                <td>haslo12345</td>
-            </tr>
-        </tbody>
-    </table>
-
     {% csrf_token %}
 
     <button id="delete-button" class="btn btn-danger">Wyczyść wszystkie dane użytkowników</button>

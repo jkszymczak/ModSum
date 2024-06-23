@@ -30,7 +30,7 @@
                         {{ product.name }}
                     </td>
                     <td>
-                        <input type="number" min="1" max="99" class="form-control quantity" data-product="{{ product.id}}" value="{{ product.quantity }}">
+                        <input type="number" class="form-control quantity" data-product="{{ product.id}}" value="{{ product.quantity }}">
                     </td>
                     <td class="text-end">{{ product.price }}zł</td>
                     <td class="text-end">{{ product.total_price }}zł</td>
@@ -81,7 +81,7 @@
         });
     });
 
-    document.querySelectorAll('.delate_item').forEach(item => {
+    document.querySelectorAll('.delate_itemm').forEach(item => {
         item.addEventListener('click', event => {
             event.preventDefault();
             let product_id = item.getAttribute('data-product');
