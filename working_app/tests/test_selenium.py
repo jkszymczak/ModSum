@@ -2,6 +2,7 @@ from telnetlib import EC
 
 from django.test import LiveServerTestCase
 from djoser.conf import User
+from django.test import tag
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -15,7 +16,7 @@ from register.models import UserProfile
 from shop.cart import Cart
 from shop.models import Contact
 
-
+@tag('test_selenium')
 class SeleniumTests(LiveServerTestCase):
     id_product = 0
 
